@@ -58,11 +58,11 @@ def process_pandemic_data(df, startdate = '2020-02-01'):
     
     return df
 
+
 def create_world_fig(df, mapbox_access_token):
    
     days = df.index.levels[0].tolist()
     day = min(days)
-
 
     # Defining each Frame
     frames = [{
@@ -77,8 +77,10 @@ def create_world_fig(df, mapbox_access_token):
         }],           
     } for day in days]  
 
+
     # Get the first frame data to set up the initial display
     data = frames[0]['data']         
+
 
     # Defining the slider to navigate between frames
     sliders = [{
@@ -98,61 +100,53 @@ def create_world_fig(df, mapbox_access_token):
                 ['frame_{}'.format(k)],
                 {
                     'mode':'immediate',
-                    'frame':{'duration':600, 'redraw': True},
-                    'transition':{'duration':0}
+                    'frame':{'duration':100, 'redraw': True},
+                    'transition':{'duration':50}
                 }
                 ],
             'label':k
         } for k in days]
     }]
 
-
-
     # Global Layout
     layout = go.Layout(
-        height=700,
+        height=600,
         autosize=True,
         hovermode='closest',
+        paper_bgcolor='rgba(0,0,0,0)',
         mapbox={
             'accesstoken':mapbox_access_token,
             'bearing':0,
             'center':{"lat": 37.86, "lon": 2.15},
             'pitch':0,
             'zoom':1.7,
-            'style':'light')
+            'style':'light',
         },
-        updatemenus=[dict(
-            type='buttons',
-            showactive=False,
-            y=0,
-            x=0,
-            xanchor='right',
-            yanchor='top',
-            pad={'t':0, 'r':0},
-            buttons=[{
+        updatemenus=[{
+            'type':'buttons',
+            'showactive':True,
+            'y':-0.1,
+            'x':0.03,
+            'buttons':[{
                 'label':'Play',
                 'method':'animate',
                 'args':[
                     None,
                     {
-                        'frame'={'duration':50, 'redraw':True},
-                        'transition':{'duration':0}
+                        'frame':{'duration':100, 'redraw':True},
+                        'transition':{'duration':50},
                         'fromcurrent':True,
-                        'mode':'immediate'
+                        'mode':'immediate',
                     }
                 ]
             }]
-        )],
+        }],
         sliders=sliders,
     )
 
-
     FIG=go.Figure(data=data, layout=layout, frames=frames)
-    FIG.update_layout(margin={"r":0,"t":0,"l":0,"b":100})
+    FIG.update_layout(margin={"r":0,"t":0,"l":0,"b":0})
     return FIG
-
-    
-
 
 ################################################################################################
 ################################################################################################
@@ -167,7 +161,7 @@ if __name__ =="__main__":
     df = pd.read_csv(raw_dataset_path, sep=';')
 
     df = process_pandemic_data(df)
-    f.save_pickle(df, 'df_world_2.p')
+    f.save_pickle(df, 'df_world.p')
 
     FIG = create_world_fig(df, mapbox_access_token=mapbox_access_token)
-    f.save_pickle(FIG, 'fig_world_2.p')
+    f.save_pickle(FIG, 'fig_world.p')

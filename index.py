@@ -23,26 +23,23 @@ import dash_html_components as html
 # Load data
 import scripts.utils_covid as f
 
-
 ############################################################################################
 ############################## PARAMETERS and PRE-COMPUTATION ##############################
 ############################################################################################
 
 # Load data
-df_world = f.load_pickle('df_world_2.p')
-FIG_world = f.load_pickle('fig_world_2.p')
+df_world = f.load_pickle('df_world.p')
+FIG_world = f.load_pickle('fig_world.p')
 
 # Deployment inforamtion
 PORT = 8050
 
-# Initiating logger
-logzero.loglevel(logging.DEBUG)
-
 # Pre compute data
 ind = df_world.groupby('date').sum().sort_index().iloc[-1]
-total_confirmed = ind['confirmed']
-total_deaths = ind['deaths']
-total_recovered = ind['recovered']
+last_date = df_world.index[-1][0]
+total_confirmed = int(ind['confirmed'])
+total_deaths = int(ind['deaths'])
+total_recovered = int(ind['recovered'])
 
 ############################################################################################
 ########################################## APP #############################################
@@ -62,41 +59,72 @@ app.config.suppress_callback_exceptions = True
 ######################################### LAYOUT ###########################################
 ############################################################################################
 
+links = html.Div(
+    id='platforms_links',
+    children=[                   
+        html.A(
+            href='http://etomal.com',
+            children=[
+                html.Img(src=app.get_asset_url('medium.png'), width=20, height=20),
+                # "How to build a dynamic map with Plotly and Dash"
+            ]
+        ),
+        html.A(
+            href='http://etomal.com',
+            children=[
+                html.Img(src=app.get_asset_url('github.png'), width=20, height=20),
+                # "Application code"
+            ]
+        ),
+        html.A(
+            href='http://etomal.com',
+            children=[
+                html.Img(src=app.get_asset_url('database.png'), width=20, height=20),
+                # "Original COVID dataset"
+            ],
+        ),
+    ],
+)
+
+
 
 app.layout = html.Div(
     children=[
+
+        # HEADER
         html.Div(
             className="header",
             children=[
-                html.H2("COVID 19 - Cases evolution all over the world", className="header__text"),
+                html.H1("COVID 19 🦠 - Cases evolution all over the world", className="header__text"),
+                html.Span('(Last update: {})'.format(last_date)),
+                # html.Hr(),
             ],
         ),
-        html.Div(
-            id='world_content',
-            children=[
 
-                # Line 1 : KPIS - World
-                html.Div(
-                    id='world_line_1',
-                    children = [ 
-                        html.Div(children = ['Confirmed', html.Br(), total_confirmed],id='confirmed_world_total', className='main_indicateur'),
-                        html.Div(children = ['Victims', html.Br(), total_recovered], id='recovered_world_total', className='main_indicateur'),
-                        html.Div(children = ['Deaths', html.Br(), total_deaths], id='deaths_world_total', className='main_indicateur'),
-                        
-                    ]
-                ),
-                html.Br(),
+        # CONTENT
+        html.Section([
+            
+            # Line 1 : KPIS - World
+            html.Div(
+                id='world_line_1',
+                children = [ 
+                    html.Div(children = ['🚨 Confirmed', html.Br(), total_confirmed], id='confirmed_world_total', className='mini_container'),
+                    html.Div(children = ['🏡 Recovered', html.Br(), total_recovered], id='recovered_world_total', className='mini_container'),
+                    html.Div(children = [' ⚰️ Victims',   html.Br(), total_deaths],    id='deaths_world_total',    className='mini_container'),            
+                ],
+            ),
+            # html.Br(),
+            links,
 
-                # Line 2 : MAP - WORLD
-                html.Div(
-                    id='world_line_2',
-                    children = [
-                        dcc.Graph(id='world_map', figure=FIG_world, config={'scrollZoom': False}),         
-                        ]
-                ),
-                html.Br(),
-            ]
-        )
+            # Line 2 : MAP - WORLD
+            html.Div(
+                id='world_line_2',
+                children = [
+                    dcc.Graph(id='world_map', figure=FIG_world, config={'scrollZoom': False}),         
+                ],
+            ),
+            html.Br(),
+        ]),
     ],
 )
 
@@ -111,10 +139,6 @@ if __name__ == "__main__":
     logger.error('App initialisation')
     logger.error('*' * 80)
 
+    # Starting flask server
     app.run_server(debug=True, port=PORT)
-    
-
-
-
-
     
