@@ -2,44 +2,33 @@
 ########################################## IMPORTS #########################################
 ############################################################################################
 
-# General libraries
+# Classic libraries
 import os
+import numpy as np
+import pandas as pd
 
 # Logging information
 import logging
 import logzero
 from logzero import logger
 
-# Classic libraries
-import numpy as np
-import pandas as pd
-
 # Dash imports
 import dash
-import dash_table
 import dash_core_components as dcc
 import dash_html_components as html
 
-# Load data
+# Custom function
 import scripts.utils_covid as f
 
 ############################################################################################
 ############################## PARAMETERS and PRE-COMPUTATION ##############################
 ############################################################################################
 
-# Load data
-df_world = f.load_pickle('df_world.p')
-FIG_world = f.load_pickle('fig_world.p')
+# Load pre computed data
+world = f.load_pickle('world_info.p')
 
 # Deployment inforamtion
 PORT = 8050
-
-# Pre compute data
-ind = df_world.groupby('date').sum().sort_index().iloc[-1]
-last_date = df_world.index[-1][0]
-total_confirmed = int(ind['confirmed'])
-total_deaths = int(ind['deaths'])
-total_recovered = int(ind['recovered'])
 
 ############################################################################################
 ########################################## APP #############################################
@@ -96,7 +85,7 @@ app.layout = html.Div(
             className="header",
             children=[
                 html.H1("COVID 19 🦠 - Cases evolution all over the world", className="header__text"),
-                html.Span('(Last update: {})'.format(last_date)),
+                html.Span('(Last update: {})'.format(world['last_date'])),
                 # html.Hr(),
             ],
         ),
@@ -108,9 +97,9 @@ app.layout = html.Div(
             html.Div(
                 id='world_line_1',
                 children = [ 
-                    html.Div(children = ['🚨 Confirmed', html.Br(), total_confirmed], id='confirmed_world_total', className='mini_container'),
-                    html.Div(children = ['🏡 Recovered', html.Br(), total_recovered], id='recovered_world_total', className='mini_container'),
-                    html.Div(children = [' ⚰️ Victims',   html.Br(), total_deaths],    id='deaths_world_total',    className='mini_container'),            
+                    html.Div(children = ['🚨 Confirmed', html.Br(), world['total_confirmed']], id='confirmed_world_total', className='mini_container'),
+                    html.Div(children = ['🏡 Recovered', html.Br(), world['total_recovered']], id='recovered_world_total', className='mini_container'),
+                    html.Div(children = [' ⚰️ Victims',   html.Br(), world['total_deaths']],    id='deaths_world_total',    className='mini_container'),            
                 ],
             ),
             # html.Br(),
@@ -120,7 +109,7 @@ app.layout = html.Div(
             html.Div(
                 id='world_line_2',
                 children = [
-                    dcc.Graph(id='world_map', figure=FIG_world, config={'scrollZoom': False}),         
+                    dcc.Graph(id='world_map', figure=world['figure'], config={'scrollZoom': False}),         
                 ],
             ),
             html.Br(),
