@@ -161,7 +161,19 @@ if __name__ =="__main__":
     df = pd.read_csv(raw_dataset_path, sep=';')
 
     df = process_pandemic_data(df)
-    f.save_pickle(df, 'df_world.p')
+    # f.save_pickle(df, 'df_world.p')
 
     FIG = create_world_fig(df, mapbox_access_token=mapbox_access_token)
-    f.save_pickle(FIG, 'fig_world.p')
+    # f.save_pickle(FIG, 'fig_world.p')
+
+    ind = df.groupby('date').sum().sort_index().iloc[-1]
+    save = {
+        'figure':FIG,
+        'last_date':df.index[-1][0],
+        'total_confirmed': f.spacify_number(int(ind['confirmed'])),
+        'total_deaths': f.spacify_number(int(ind['deaths'])),
+        'total_recovered': f.spacify_number(int(ind['recovered']))
+    }
+    f.save_pickle(save, 'world_info.p')
+
+

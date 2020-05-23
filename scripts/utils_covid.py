@@ -31,3 +31,14 @@ def load_mapbox_token():
     with open(file_path, 'r') as pfile:
         token = pfile.read()
     return token
+    
+
+def spacify_number(number):
+    nb_rev = str(number)[::-1]
+    new_chain = ''
+    for val, letter in enumerate(nb_rev):
+        if val%3==0:
+            new_chain += ' '
+        new_chain += letter
+    final_chain = new_chain[::-1]
+    return final_chain
