@@ -1,0 +1,19 @@
+# Unuseful files
+__pycache__
+.DS_Store
+.ipynb_checkpoints
+.vscode
+.idea
+*.pyc
+
+
+# Data
+*.jl
+*.json
+*.token
+data
+notebook/*/
+activate_utils.sh
+
+DockerFile
+docker-compose.yml
