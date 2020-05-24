@@ -1,9 +1,18 @@
 # Import packages
 import os 
 import pickle
+import configparser
 
+# Load config
+config = configparser.ConfigParser()
+if 'config.ini' in os.listdir():
+    config.read('config.ini')
+else:
+    config.read('../config.ini')
  
-DATA_PATH = '/Users/thibaud/Documents/Python_scripts/02_Projects/dash-choropleth-map/data/'
+# Create path for project use
+DATA_PATH = config['path']['data']
+RAW_PATH = DATA_PATH + 'raw/'
 PICKLE_PATH = DATA_PATH + 'pickle/'
 
 
@@ -25,14 +34,7 @@ def list_pickle():
     pickle_list = [i for i in file_list if '.p' in i]
     print(pickle_list)
 
-
-def load_mapbox_token():
-    file_path = DATA_PATH + 'mapbox.token'
-    with open(file_path, 'r') as pfile:
-        token = pfile.read()
-    return token
     
-
 def spacify_number(number):
     nb_rev = str(number)[::-1]
     new_chain = ''
