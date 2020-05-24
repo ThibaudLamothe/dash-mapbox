@@ -84,7 +84,7 @@ app.layout = html.Div(
         html.Div(
             className="header",
             children=[
-                html.H1("COVID 19 🦠 - Cases evolution all over the world", className="header__text"),
+                html.H1("COVID 19 🦠 - Day to day evolution all over the world", className="header__text"),
                 html.Span('(Last update: {})'.format(world['last_date'])),
                 # html.Hr(),
             ],
@@ -112,7 +112,7 @@ app.layout = html.Div(
                     dcc.Graph(id='world_map', figure=world['figure'], config={'scrollZoom': False}),         
                 ],
             ),
-            html.Br(),
+            # html.Br(),
         ]),
     ],
 )
