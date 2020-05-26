@@ -9,6 +9,8 @@ App available on Heroku [here](https://covid-19-worldmap.herokuapp.com/)
 
 ## Other resources
 
+https://plotly.com/python/animations/ => from animation to dash
+
 - Geo coding monde : https://geojson-maps.ash.ms/
 - https://plotly.com/python/hover-text-and-formatting/
 - https://community.plotly.com/t/remove-trace-0-next-to-hover/33731

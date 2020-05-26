@@ -78,12 +78,15 @@ def create_world_fig(df, mapbox_access_token):
     } for day in days]  
 
 
-    # Get the first frame data to set up the initial display
-    data = frames[0]['data']         
+    # Prepare the frame to display
+    data = frames[-1]['data']     
 
+    # And specify the adequate button postion    
+    active_frame=len(days) - 1
 
     # Defining the slider to navigate between frames
     sliders = [{
+        'active':active_frame,
         'transition':{'duration': 0},
         'x':0.08,     #slider starting position  
         'len':0.88,

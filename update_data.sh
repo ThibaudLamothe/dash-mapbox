@@ -5,4 +5,4 @@ wget -O data/raw/covid-19-pandemic-worldwide-data.csv "https://public.opendataso
 
 cd scripts && echo ls && python create_world_fig.py
 cd ..
-python app.pypython
+python app.py

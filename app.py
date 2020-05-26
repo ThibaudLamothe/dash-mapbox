@@ -52,7 +52,7 @@ links = html.Div(
     id='platforms_links',
     children=[                   
         html.A(
-            href='http://etomal.com',
+            href='https://medium.com/@thibaud.lamothe2',
             children=[
                 html.Img(src=app.get_asset_url('medium.png'), width=20, height=20),
                 # "How to build a dynamic map with Plotly and Dash"
@@ -66,7 +66,7 @@ links = html.Div(
             ]
         ),
         html.A(
-            href='http://etomal.com',
+            href='https://public.opendatasoft.com/explore/dataset/covid-19-pandemic-worldwide-data/information/?disjunctive.zone&disjunctive.category&sort=date',
             children=[
                 html.Img(src=app.get_asset_url('database.png'), width=20, height=20),
                 # "Original COVID dataset"
