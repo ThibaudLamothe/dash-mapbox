@@ -5,6 +5,13 @@ import configparser
 
 # Load config
 config = configparser.ConfigParser()
+
+
+if 'config.example.ini' in os.listdir():
+    config.read('config.example.ini')
+else:
+    config.read('../config.example.ini')
+
 if 'config.ini' in os.listdir():
     config.read('config.ini')
 else:
