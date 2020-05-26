@@ -125,7 +125,7 @@ def create_world_fig(df, mapbox_access_token):
                 }
             ]
         }]
-    }],
+    }]
 
     # Global Layout
     layout = go.Layout(

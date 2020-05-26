@@ -11,7 +11,7 @@ __pycache__
 *.jl
 *.json
 *.token
-*.ini
+config.ini
 notebook/*/
 activate_utils.sh
 

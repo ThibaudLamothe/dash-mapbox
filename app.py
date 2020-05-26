@@ -59,7 +59,7 @@ links = html.Div(
             ]
         ),
         html.A(
-            href='http://etomal.com',
+            href='https://github.com/ThibaudLamothe/dash-mapbox',
             children=[
                 html.Img(src=app.get_asset_url('github.png'), width=20, height=20),
                 # "Application code"

@@ -33,7 +33,8 @@ def load_pickle(file_name):
 def save_pickle(object_, file_name):
     file_path = PICKLE_PATH + file_name
     with open(file_path, 'wb') as pfile:
-        pickle.dump(object_, pfile, protocol=pickle.HIGHEST_PROTOCOL)
+        # pickle.dump(object_, pfile, protocol=pickle.HIGHEST_PROTOCOL)
+        pickle.dump(object_, pfile, protocol=2)
 
 
 def list_pickle():
