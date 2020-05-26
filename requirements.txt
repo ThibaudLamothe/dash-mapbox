@@ -3,3 +3,4 @@ pandas
 dash
 dash-daq
 logzero
+gunicorn
