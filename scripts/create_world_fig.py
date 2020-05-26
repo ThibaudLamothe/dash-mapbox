@@ -99,8 +99,8 @@ def create_world_fig(df, mapbox_access_token):
                 ['frame_{}'.format(day)],
                 {
                     'mode':'immediate',
-                    'frame':{'duration':100, 'redraw': True},
-                    'transition':{'duration':50}
+                    'frame':{'duration':250, 'redraw': True}, #100
+                    'transition':{'duration':100} #50
                 }
                 ],
             'label':day
@@ -118,8 +118,8 @@ def create_world_fig(df, mapbox_access_token):
             'args':[
                 None,
                 {
-                    'frame':{'duration':100, 'redraw':True},
-                    'transition':{'duration':50},
+                    'frame':{'duration':250, 'redraw':True}, #100
+                    'transition':{'duration':100}, #50
                     'fromcurrent':True,
                     'mode':'immediate',
                 }
