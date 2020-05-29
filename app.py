@@ -55,7 +55,14 @@ links = html.Div(
             href='https://medium.com/@thibaud.lamothe2',
             children=[
                 html.Img(src=app.get_asset_url('medium.png'), width=20, height=20),
-                # "How to build a dynamic map with Plotly and Dash"
+                html.Span("Map")
+            ]
+        ),
+        html.A(
+            href='https://medium.com/@thibaud.lamothe2',
+            children=[
+                html.Img(src=app.get_asset_url('medium.png'), width=20, height=20),
+                html.Span("Deploy")
             ]
         ),
         html.A(
@@ -63,6 +70,7 @@ links = html.Div(
             children=[
                 html.Img(src=app.get_asset_url('github.png'), width=20, height=20),
                 # "Application code"
+                html.Span("Code")
             ]
         ),
         html.A(
@@ -70,6 +78,7 @@ links = html.Div(
             children=[
                 html.Img(src=app.get_asset_url('database.png'), width=20, height=20),
                 # "Original COVID dataset"
+                html.Span("Data")
             ],
         ),
     ],
