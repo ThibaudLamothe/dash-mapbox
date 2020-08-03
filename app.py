@@ -52,14 +52,14 @@ links = html.Div(
     id='platforms_links',
     children=[                   
         html.A(
-            href='https://medium.com/@thibaud.lamothe2',
+            href='https://towardsdatascience.com/how-to-create-animated-scatter-maps-with-plotly-and-dash-f10bb82d357a',
             children=[
                 html.Img(src=app.get_asset_url('medium.png'), width=20, height=20),
                 html.Span("Map")
             ]
         ),
         html.A(
-            href='https://medium.com/@thibaud.lamothe2',
+            href='https://medium.com/@thibaud.lamothe2/deploying-dash-or-flask-web-application-on-heroku-easy-ci-cd-4111da3170b8',
             children=[
                 html.Img(src=app.get_asset_url('medium.png'), width=20, height=20),
                 html.Span("Deploy")
