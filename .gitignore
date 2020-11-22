@@ -11,9 +11,12 @@ __pycache__
 *.jl
 *.json
 *.token
+*.ipynb
 config.ini
 notebook/*/
 activate_utils.sh
 
 DockerFile
 docker-compose.yml
+
+gist
