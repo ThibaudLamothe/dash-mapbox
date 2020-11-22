@@ -40,7 +40,7 @@ def process_pandemic_data(df, startdate = '2020-03-01'):
     df = df.fillna(0)
 
     # Compute bubble sizes
-    df['size'] = df['confirmed'].apply(lambda x: (np.sqrt(x/100) + 1) if x > 500 else (np.log(x) / 2 + 1)).replace(np.NINF, 0)
+    df['size'] = df['confirmed'].apply(lambda x: (np.sqrt(x/100) + 1) if x > 500 else (np.log(x) / 2 + 1)).replace(np.NINF, 0) * 0.5
     df['color'] = (df['recovered']/df['confirmed']).fillna(0).replace(np.inf , 0) * 100
     
     # Prepare display values for bubble hover
